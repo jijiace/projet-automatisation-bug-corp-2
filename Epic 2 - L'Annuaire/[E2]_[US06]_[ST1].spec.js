@@ -22,7 +22,7 @@ test.beforeEach(async ({ page }) => {
   await page.getByTestId("nav-directory").click();
 });
 
-test('[E2] [US05] [CT1] - Ouverture fenêtre "Légende de la BugCorp" (bouton "Légende & Rôles")', async ({
+test('[E2] [US06] [CT1] - Ouverture fenêtre "Légende de la BugCorp" (bouton "Légende & Rôles")', async ({
   page,
 }) => {
   await page.getByTestId("legend-btn").click();
@@ -31,7 +31,7 @@ test('[E2] [US05] [CT1] - Ouverture fenêtre "Légende de la BugCorp" (bouton "L
   );
 });
 
-test('[E2] [US05] [CT2] - Liste hiérarchique des rôles dans la fenêtre "Légende de la BugCorp"', async ({
+test('[E2] [US06] [CT2] - Liste hiérarchique des rôles dans la fenêtre "Légende de la BugCorp"', async ({
   page,
 }) => {
   await page.getByTestId("legend-btn").click();
@@ -49,7 +49,7 @@ test('[E2] [US05] [CT2] - Liste hiérarchique des rôles dans la fenêtre "Lége
   }
 });
 
-test('[E2] [US05] [CT3a] - Fermer la fenêtre "Légende de la BugCorp" (via le bouton "Compris")', async ({
+test('[E2] [US06] [CT3a] - Fermer la fenêtre "Légende de la BugCorp" (via le bouton "Compris")', async ({
   page,
 }) => {
   await page.getByTestId("legend-btn").click();
@@ -59,7 +59,7 @@ test('[E2] [US05] [CT3a] - Fermer la fenêtre "Légende de la BugCorp" (via le b
   );
 });
 
-test('[E2] [US05] [CT3b] - Fermer la fenêtre "Légende de la BugCorp" (via le bouton en forme de croix)', async ({
+test('[E2] [US06] [CT3b] - Fermer la fenêtre "Légende de la BugCorp" (via le bouton en forme de croix)', async ({
   page,
 }) => {
   await page.getByTestId("legend-btn").click();
