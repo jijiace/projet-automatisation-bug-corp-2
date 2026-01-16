@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-
+// on verifie que la sucession de test est bien fonctionelle
 test("test", async ({ page }) => {
   await page.goto("https://bugcorp.vercel.app/");
   await page.getByTestId("nav-directory").click();
