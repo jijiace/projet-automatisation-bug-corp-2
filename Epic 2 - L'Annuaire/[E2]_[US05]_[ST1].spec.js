@@ -24,7 +24,6 @@ test("[E2] [US05] [CT1] - Barre de recherche", async ({ page }) => {
   for (let i = 0; i < liste_input.length; i++) {
     console.log('\nTerme recherché : "' + liste_input[i] + '"');
     await page.getByTestId("reset-btn").click();
-    await page.getByTestId("search-input").click();
     await page.getByTestId("search-input").fill(liste_input[i]);
 
     const messageVide = await page.locator("#table-body #table-empty-message"); // Message qui s'affiche dans le tableau quand il est vide

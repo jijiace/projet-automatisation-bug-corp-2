@@ -85,25 +85,19 @@ test("[E2] [US07] [CT3] - Sélectionner et désélectionner tous les employés d
 test("[E2] [US07] [CT4a] - Ruban : Nombre d'employés sélectionnés", async ({
   page,
 }) => {
-  await expect(page.locator("#pagination-info")).toContainText("1");
+  await expect(page.locator("#pagination-info")).toContainText("Page 1 sur 16");
   await expect(page.getByTestId("items-per-page")).toHaveValue("10");
   await page.getByTestId("checkbox-1001").check();
   await expect(page.getByText("1 sélectionné(s) Promouvoir R")).toBeVisible();
-  await expect(page.locator("#text-bulk-count")).toContainText(
-    "1 sélectionné(s)"
-  );
+  await expect(page.locator("#text-bulk-count")).toHaveText("1 sélectionné(s)");
   await page.getByTestId("checkbox-1002").check();
-  await expect(page.locator("#text-bulk-count")).toContainText(
-    "2 sélectionné(s)"
-  );
+  await expect(page.locator("#text-bulk-count")).toHaveText("2 sélectionné(s)");
   await page.getByTestId("checkbox-1001").uncheck();
-  await expect(page.locator("#text-bulk-count")).toContainText(
-    "1 sélectionné(s)"
-  );
+  await expect(page.locator("#text-bulk-count")).toHaveText("1 sélectionné(s)");
   await page.getByTestId("next-page-btn").click();
-  await expect(page.locator("#pagination-info")).toContainText("2");
+  await expect(page.locator("#pagination-info")).toContainText("Page 2 sur 16");
   await page.getByTestId("select-all-checkbox").check();
-  await expect(page.locator("#text-bulk-count")).toContainText(
+  await expect(page.locator("#text-bulk-count")).toHaveText(
     "11 sélectionné(s)"
   );
 });
@@ -111,13 +105,13 @@ test("[E2] [US07] [CT4a] - Ruban : Nombre d'employés sélectionnés", async ({
 test("[E2] [US07] [CT4b-1] - Ruban : Actions sur les employés sélectionnés (Promouvoir)", async ({
   page,
 }) => {
-  await expect(page.locator("#current-savings-value")).toContainText("0 €");
-  await expect(page.locator("#cell-name-1001")).toContainText("Dennis Ritchie");
-  await expect(page.locator("#cell-role-1001")).toContainText("Junior Dev");
-  await expect(page.locator("#cell-name-1002")).toContainText("Otto Mobile");
-  await expect(page.locator("#cell-role-1002")).toContainText("Manager");
-  await expect(page.locator("#cell-name-1003")).toContainText("Mehdi Cament");
-  await expect(page.locator("#cell-role-1003")).toContainText("CEO");
+  await expect(page.locator("#current-savings-value")).toHaveText("0 €");
+  await expect(page.locator("#cell-name-1001")).toHaveText("Dennis Ritchie");
+  await expect(page.locator("#cell-role-1001")).toHaveText("Junior Dev");
+  await expect(page.locator("#cell-name-1002")).toHaveText("Otto Mobile");
+  await expect(page.locator("#cell-role-1002")).toHaveText("Manager");
+  await expect(page.locator("#cell-name-1003")).toHaveText("Mehdi Cament");
+  await expect(page.locator("#cell-role-1003")).toHaveText("CEO");
   await page.getByTestId("checkbox-1001").check();
   await page.getByTestId("checkbox-1002").check();
   await page.getByTestId("checkbox-1003").check();
@@ -128,26 +122,22 @@ test("[E2] [US07] [CT4b-1] - Ruban : Actions sur les employés sélectionnés (P
   await expect(page.getByTestId("checkbox-1002")).not.toBeChecked();
   await expect(page.getByTestId("checkbox-1003")).not.toBeChecked();
 
-  await expect(page.locator("#current-savings-value")).toContainText(
-    "-45 000 €"
-  );
-  await expect(page.locator("#cell-role-1001")).toContainText("Senior Dev");
-  await expect(page.locator("#cell-role-1002")).toContainText("Director");
-  await expect(page.locator("#cell-role-1003")).toContainText(
-    "Galactic Emperor"
-  );
+  await expect(page.locator("#current-savings-value")).toHaveText("-45 000 €");
+  await expect(page.locator("#cell-role-1001")).toHaveText("Senior Dev");
+  await expect(page.locator("#cell-role-1002")).toHaveText("Director");
+  await expect(page.locator("#cell-role-1003")).toHaveText("Galactic Emperor");
 });
 
 test("[E2] [US07] [CT4b-2] - Ruban : Actions sur les employés sélectionnés (Rétrograder)", async ({
   page,
 }) => {
-  await expect(page.locator("#current-savings-value")).toContainText("0 €");
-  await expect(page.locator("#cell-name-1001")).toContainText("Dennis Ritchie");
-  await expect(page.locator("#cell-role-1001")).toContainText("Junior Dev");
-  await expect(page.locator("#cell-name-1002")).toContainText("Otto Mobile");
-  await expect(page.locator("#cell-role-1002")).toContainText("Manager");
-  await expect(page.locator("#cell-name-1003")).toContainText("Mehdi Cament");
-  await expect(page.locator("#cell-role-1003")).toContainText("CEO");
+  await expect(page.locator("#current-savings-value")).toHaveText("0 €");
+  await expect(page.locator("#cell-name-1001")).toHaveText("Dennis Ritchie");
+  await expect(page.locator("#cell-role-1001")).toHaveText("Junior Dev");
+  await expect(page.locator("#cell-name-1002")).toHaveText("Otto Mobile");
+  await expect(page.locator("#cell-role-1002")).toHaveText("Manager");
+  await expect(page.locator("#cell-name-1003")).toHaveText("Mehdi Cament");
+  await expect(page.locator("#cell-role-1003")).toHaveText("CEO");
   await page.getByTestId("checkbox-1001").check();
   await page.getByTestId("checkbox-1002").check();
   await page.getByTestId("checkbox-1003").check();
@@ -158,23 +148,21 @@ test("[E2] [US07] [CT4b-2] - Ruban : Actions sur les employés sélectionnés (R
   await expect(page.getByTestId("checkbox-1002")).not.toBeChecked();
   await expect(page.getByTestId("checkbox-1003")).not.toBeChecked();
 
-  await expect(page.locator("#current-savings-value")).toContainText(
-    "36 000 €"
-  );
+  await expect(page.locator("#current-savings-value")).toHaveText("36 000 €");
 
-  await expect(page.locator("#cell-role-1001")).toContainText("Intern");
-  await expect(page.locator("#cell-role-1002")).toContainText("Senior Dev");
-  await expect(page.locator("#cell-role-1003")).toContainText("VP");
+  await expect(page.locator("#cell-role-1001")).toHaveText("Intern");
+  await expect(page.locator("#cell-role-1002")).toHaveText("Senior Dev");
+  await expect(page.locator("#cell-role-1003")).toHaveText("VP");
 });
 
 test("[E2] [US07] [CT4b-3] - Ruban : Actions sur les employés sélectionnés (Virer)", async ({
   page,
 }) => {
-  await expect(page.locator("#current-savings-value")).toContainText("0 €");
-  await expect(page.getByTestId("total-count")).toContainText("151");
-  await expect(page.locator("#cell-name-1001")).toContainText("Dennis Ritchie");
-  await expect(page.locator("#cell-name-1002")).toContainText("Otto Mobile");
-  await expect(page.locator("#cell-name-1003")).toContainText("Mehdi Cament");
+  await expect(page.locator("#current-savings-value")).toHaveText("0 €");
+  await expect(page.getByTestId("total-count")).toHaveText("151");
+  await expect(page.locator("#cell-name-1001")).toHaveText("Dennis Ritchie");
+  await expect(page.locator("#cell-name-1002")).toHaveText("Otto Mobile");
+  await expect(page.locator("#cell-name-1003")).toHaveText("Mehdi Cament");
   await page.getByTestId("checkbox-1001").check();
   await page.getByTestId("checkbox-1002").check();
   await page.getByTestId("checkbox-1003").check();
@@ -185,10 +173,8 @@ test("[E2] [US07] [CT4b-3] - Ruban : Actions sur les employés sélectionnés (V
   await page.getByTestId("fire-confirm-input").fill("DELETE");
   await page.getByTestId("fire-step3-confirm").click();
 
-  await expect(page.locator("#current-savings-value")).toContainText(
-    "135 000 €"
-  );
-  await expect(page.getByTestId("total-count")).toContainText("148");
+  await expect(page.locator("#current-savings-value")).toHaveText("135 000 €");
+  await expect(page.getByTestId("total-count")).toHaveText("148");
   await page.getByTestId("search-input").fill("Dennis Ritchie");
   const messageVide = await page.locator("#table-body #table-empty-message"); // Message qui s'affiche dans le tableau quand il est vide
   expect(await messageVide.isVisible()).toBeTruthy();

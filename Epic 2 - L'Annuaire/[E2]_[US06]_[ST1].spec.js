@@ -26,7 +26,7 @@ test('[E2] [US06] [CT1] - Ouverture fenêtre "Légende de la BugCorp" (bouton "L
   page,
 }) => {
   await page.getByTestId("legend-btn").click();
-  await expect(page.locator("#legend-title")).toContainText(
+  await expect(page.locator("#legend-title")).toHaveText(
     "Légende de la BugCorp"
   );
 });
@@ -35,7 +35,7 @@ test('[E2] [US06] [CT2] - Liste hiérarchique des rôles dans la fenêtre "Lége
   page,
 }) => {
   await page.getByTestId("legend-btn").click();
-  await expect(page.locator("#column-roles h3")).toContainText(
+  await expect(page.locator("#column-roles h3")).toHaveText(
     "Hiérarchie des Rôles"
   );
 
@@ -54,9 +54,7 @@ test('[E2] [US06] [CT3a] - Fermer la fenêtre "Légende de la BugCorp" (via le b
 }) => {
   await page.getByTestId("legend-btn").click();
   await page.getByTestId("modal-confirm-btn").click();
-  await expect(page.locator("#page-title")).toContainText(
-    "L'Annuaire Enterprise"
-  );
+  await expect(page.locator("#page-title")).toHaveText("L'Annuaire Enterprise");
 });
 
 test('[E2] [US06] [CT3b] - Fermer la fenêtre "Légende de la BugCorp" (via le bouton en forme de croix)', async ({
@@ -64,7 +62,5 @@ test('[E2] [US06] [CT3b] - Fermer la fenêtre "Légende de la BugCorp" (via le b
 }) => {
   await page.getByTestId("legend-btn").click();
   await page.getByTestId("close-modal-btn").click();
-  await expect(page.locator("#page-title")).toContainText(
-    "L'Annuaire Enterprise"
-  );
+  await expect(page.locator("#page-title")).toHaveText("L'Annuaire Enterprise");
 });
