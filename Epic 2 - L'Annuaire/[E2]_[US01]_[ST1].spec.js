@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-
+// on verifie qu'on peut bien supprimer un salarié
 test("test", async ({ page }) => {
   await page.goto("https://bugcorp.vercel.app/");
   await page.getByTestId("nav-directory").click();
@@ -16,7 +16,7 @@ test("test", async ({ page }) => {
   await page.getByTestId("fire-confirm-input").fill("DELETE");
   await page.getByTestId("fire-step3-confirm").click();
 });
-
+//on verifie qu'on peut bien supprimer un salarié via l icone
 test("icone", async ({ page }) => {
   await page.goto("https://bugcorp.vercel.app/");
   await page.getByTestId("nav-directory").click();
@@ -39,7 +39,7 @@ test("icone", async ({ page }) => {
   await page.getByTestId("fire-confirm-input").fill("DELETE");
   await page.getByTestId("fire-step3-confirm").click();
 });
-
+// on verifie qu'on peut bien annuler la suppresion d'un salarié
 test("annulation", async ({ page }) => {
   await page.goto("https://bugcorp.vercel.app/");
   await page.getByTestId("nav-directory").click();
@@ -50,7 +50,7 @@ test("annulation", async ({ page }) => {
     .getByRole("button", { name: "Je ne suis pas un monstre (" })
     .click();
 });
-
+// on verifie bien qu'on peut bien annuler la suppresion d'un salarié via l'icone
 test("annulationbis", async ({ page }) => {
   await page.goto("https://bugcorp.vercel.app/");
   await page.getByTestId("nav-directory").click();

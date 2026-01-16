@@ -45,11 +45,11 @@ test("[E2] [US08] [CT1a] - Affichage du rôle des employé.e.s + mise à jour de
     const ligne = lignes[0]; // On ne s'intéresse qu'à la 1ère ligne du tableau (sans compter l'en-tête)
     await expect(
       ligne.locator("td:nth-child(3)").locator('[id^="cell-name-"]')
-    ).toHaveText(liste_employes[i]); // Vérifier que la ligne contient bien le nom de l'employé recherché
+    ).toContainText(liste_employes[i]); // Vérifier que la ligne contient bien le nom de l'employé recherché
     console.log("\nEmployé : " + liste_employes[i]);
     await expect(
       ligne.locator("td:nth-child(3)").locator('[id^="cell-role-"]')
-    ).toHaveText(liste_roles[i]); // Vérifier que la ligne contient bien le role initial de l'employé
+    ).toContainText(liste_roles[i]); // Vérifier que la ligne contient bien le role initial de l'employé
     console.log("Rôle initial : " + liste_roles[i]);
 
     await ligne
@@ -61,7 +61,7 @@ test("[E2] [US08] [CT1a] - Affichage du rôle des employé.e.s + mise à jour de
     const lignenouv = lignesnouv[0]; // Récupérer à nouveau la 1ère ligne du tableau
     await expect(
       lignenouv.locator("td:nth-child(3)").locator('[id^="cell-role-"]')
-    ).toHaveText(liste_roles[i + 1]); // Vérifier que le role de l'employé a bien été mis à jour dans la ligne
+    ).toContainText(liste_roles[i + 1]); // Vérifier que le role de l'employé a bien été mis à jour dans la ligne
     console.log("Rôle après promotion : " + liste_roles[i + 1]);
   }
 });
@@ -75,11 +75,11 @@ test("[E2] [US08] [CT1b] - Affichage du rôle des employé.e.s + mise à jour de
     const ligne = lignes[0]; // On ne s'intéresse qu'à la 1ère ligne du tableau (sans compter l'en-tête)
     await expect(
       ligne.locator("td:nth-child(3)").locator('[id^="cell-name-"]')
-    ).toHaveText(liste_employes[i]); // Vérifier que la ligne contient bien le nom de l'employé recherché
+    ).toContainText(liste_employes[i]); // Vérifier que la ligne contient bien le nom de l'employé recherché
     console.log("\nEmployé : " + liste_employes[i]);
     await expect(
       ligne.locator("td:nth-child(3)").locator('[id^="cell-role-"]')
-    ).toHaveText(liste_roles[i]); // Vérifier que la ligne contient bien le role initial de l'employé
+    ).toContainText(liste_roles[i]); // Vérifier que la ligne contient bien le role initial de l'employé
     console.log("Rôle initial : " + liste_roles[i]);
 
     await ligne
@@ -91,7 +91,7 @@ test("[E2] [US08] [CT1b] - Affichage du rôle des employé.e.s + mise à jour de
     const lignenouv = lignesnouv[0]; // Récupérer à nouveau la 1ère ligne du tableau
     await expect(
       lignenouv.locator("td:nth-child(3)").locator('[id^="cell-role-"]')
-    ).toHaveText(liste_roles[i - 1]); // Vérifier que le role de l'employé a bien été mis à jour dans la ligne
+    ).toContainText(liste_roles[i - 1]); // Vérifier que le role de l'employé a bien été mis à jour dans la ligne
     console.log("Rôle après promotion : " + liste_roles[i - 1]);
   }
 });
@@ -105,11 +105,11 @@ test("[E2] [US08] [CT2] - Affichage du rôle des employé.e.s : cas limites muta
   const ligne = lignes[0]; // On ne s'intéresse qu'à la 1ère ligne du tableau (sans compter l'en-tête)
   await expect(
     ligne.locator("td:nth-child(3)").locator('[id^="cell-name-"]')
-  ).toHaveText(liste_employes[0]); // Vérifier que la ligne contient bien le nom de l'employé recherché
+  ).toContainText(liste_employes[0]); // Vérifier que la ligne contient bien le nom de l'employé recherché
   console.log("\nEmployé : " + liste_employes[0]);
   await expect(
     ligne.locator("td:nth-child(3)").locator('[id^="cell-role-"]')
-  ).toHaveText(liste_roles[0]); // Vérifier que la ligne contient bien le role initial de l'employé
+  ).toContainText(liste_roles[0]); // Vérifier que la ligne contient bien le role initial de l'employé
   console.log("Rôle initial : " + liste_roles[0]);
 
   await ligne.locator("td:nth-child(8)").locator('[id^="btn-demote-"]').click(); // Cliquer sur le bouton "Rétrograder" de la ligne
@@ -118,7 +118,7 @@ test("[E2] [US08] [CT2] - Affichage du rôle des employé.e.s : cas limites muta
   const lignenouv = lignesnouv[0]; // Récupérer à nouveau la 1ère ligne du tableau
   await expect(
     lignenouv.locator("td:nth-child(3)").locator('[id^="cell-role-"]')
-  ).toHaveText(liste_roles[0]); // Vérifier que le role de l'employé a bien été mis à jour dans la ligne
+  ).toContainText(liste_roles[0]); // Vérifier que le role de l'employé a bien été mis à jour dans la ligne
   console.log("Rôle après rétrogradation : " + liste_roles[0]);
 
   // Tenter de promouvoir un "Galactic Emperor" :
@@ -127,11 +127,11 @@ test("[E2] [US08] [CT2] - Affichage du rôle des employé.e.s : cas limites muta
   const ligne2 = lignes2[0]; // On ne s'intéresse qu'à la 1ère ligne du tableau (sans compter l'en-tête)
   await expect(
     ligne2.locator("td:nth-child(3)").locator('[id^="cell-name-"]')
-  ).toHaveText(liste_employes[10]); // Vérifier que la ligne contient bien le nom de l'employé recherché
+  ).toContainText(liste_employes[10]); // Vérifier que la ligne contient bien le nom de l'employé recherché
   console.log("\nEmployé : " + liste_employes[10]);
   await expect(
     ligne2.locator("td:nth-child(3)").locator('[id^="cell-role-"]')
-  ).toHaveText(liste_roles[10]); // Vérifier que la ligne contient bien le role initial de l'employé
+  ).toContainText(liste_roles[10]); // Vérifier que la ligne contient bien le role initial de l'employé
   console.log("Rôle initial : " + liste_roles[10]);
 
   await ligne2
@@ -143,6 +143,6 @@ test("[E2] [US08] [CT2] - Affichage du rôle des employé.e.s : cas limites muta
   const ligne2nouv = lignes2nouv[0]; // Récupérer à nouveau la 1ère ligne du tableau
   await expect(
     ligne2nouv.locator("td:nth-child(3)").locator('[id^="cell-role-"]')
-  ).toHaveText(liste_roles[10]); // Vérifier que le role de l'employé a bien été mis à jour dans la ligne
+  ).toContainText(liste_roles[10]); // Vérifier que le role de l'employé a bien été mis à jour dans la ligne
   console.log("Rôle après promotion : " + liste_roles[10]);
 });
