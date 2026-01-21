@@ -28,6 +28,11 @@ export default defineConfig({
   reporter: "html",
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    // browserName: "webkit",
+    headless: false,
+    launchOptions: {
+      slowMo: 600, // 1 seconde de délai entre chaque action
+    },
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
