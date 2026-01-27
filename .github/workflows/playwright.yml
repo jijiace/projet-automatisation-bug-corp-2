@@ -1,4 +1,5 @@
 name: Playwright Tests
+
 on:
   push:
     branches: [ main, master ]
@@ -8,47 +9,45 @@ on:
 
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-      
-    # Tests Annuaire
-    - name: Exécuter les tests de l'Annuaire
-      run: npx playwright test "Epic 2 - L'Annuaire" --reporter=line,html
-    - name: Archiver le rapport de l'Annuaire
-      uses: actions/upload-artifact@v3
-      if: ${{ !cancelled() }}
-      with:
-        name: rapport-tests-E2-annuaire
-        path: playwright-report/
-        retention-days: 30
+      - name: Checkout du code
+        uses: actions/checkout@v4
 
-    # Tests Zone sécurisée
-    - name: Exécuter les tests de la Zone sécurisée
-      run: npx playwright test "Epic 3 - Zone sécurisée" --reporter=line,html
-    - name: Archiver le rapport de la Zone sécurisée
-      uses: actions/upload-artifact@v3
-      if: ${{ !cancelled() }}
-      with:
-        name: rapport-tests-E3-zone-securisee
-        path: playwright-report/
-        retention-days: 30
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
 
-    # Tests Contact
-    - name: Exécuter les tests de Contact
-      run: npx playwright test "Epic 5 - Contact" --reporter=line,html
-    - name: Archiver le rapport de Contact
-      uses: actions/upload-artifact@v3
-      if: ${{ !cancelled() }}
-      with:
-        name: rapport-tests-E5-contact
-        path: playwright-report/
-        retention-days: 30
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Exécuter les tests Epic 2 - Annuaire
+        run: npx playwright test "Epic 2 - L'Annuaire"
+
+      - name: Exécuter les tests Epic 3 - Zone sécurisée
+        run: npx playwright test "Epic 3 - Zone sécurisée"
+
+      - name: Exécuter les tests Epic 5 - Contact
+        run: npx playwright test "Epic 5 - Contact"
+
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 30
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results
+          retention-days: 30
