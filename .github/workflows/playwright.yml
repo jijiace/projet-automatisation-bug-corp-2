@@ -28,7 +28,7 @@ jobs:
       if: ${{ !cancelled() }}
       with:
         name: rapport-tests-E2-annuaire
-        path: report-E2-annuaire
+        path: playwright-report/report-E2-annuaire
         retention-days: 30
     - name: Exécuter les tests de la Zone sécurisée
       run: npx playwright test "Epic 3 - Zone sécurisée" --reporter=line
@@ -39,7 +39,7 @@ jobs:
       if: ${{ !cancelled() }}
       with:
         name: rapport-tests-E3-zone-securisee
-        path: report-E3-zone-securisee
+        path: playwright-report/report-E3-zone-securisee
         retention-days: 30
     - name: Exécuter les tests de Contact
       run: npx playwright test "Epic 5 - Contact" --reporter=line
@@ -50,5 +50,5 @@ jobs:
       if: ${{ !cancelled() }}
       with:
         name: rapport-tests-E5-contact
-        path: report-E5-contact
+        path: playwright-report/report-E5-contact
         retention-days: 30
