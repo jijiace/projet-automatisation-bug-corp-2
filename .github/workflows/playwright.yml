@@ -24,7 +24,7 @@ jobs:
     - name: Exécuter les tests de l'Annuaire
       run: npx playwright test "Epic 2 - L'Annuaire" --reporter=line,html
     - name: Archiver le rapport de l'Annuaire
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact: v3
       if: ${{ !cancelled() }}
       with:
         name: rapport-tests-E2-annuaire
@@ -35,7 +35,7 @@ jobs:
     - name: Exécuter les tests de la Zone sécurisée
       run: npx playwright test "Epic 3 - Zone sécurisée" --reporter=line,html
     - name: Archiver le rapport de la Zone sécurisée
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact: v3
       if: ${{ !cancelled() }}
       with:
         name: rapport-tests-E3-zone-securisee
@@ -46,7 +46,7 @@ jobs:
     - name: Exécuter les tests de Contact
       run: npx playwright test "Epic 5 - Contact" --reporter=line,html
     - name: Archiver le rapport de Contact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact: v3
       if: ${{ !cancelled() }}
       with:
         name: rapport-tests-E5-contact
