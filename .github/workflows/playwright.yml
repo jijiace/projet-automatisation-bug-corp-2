@@ -27,18 +27,12 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Exécuter les tests Epic 5 - Contact
-       
-        run: npx playwright test "Epic 5 - Contact" --project=chromium
-        
-      - name: Exécuter les tests Epic 2 - Annuaire
-       
-        run: npx playwright test "Epic 2 - L'Annuaire" --project=chromium
-
-      - name: Exécuter les tests Epic 3 - Zone sécurisée
-     
-        run: npx playwright test "Epic 3 - Zone sécurisée" --project=chromium
-        
+      - name: Exécuter les tests
+        run: |
+          npx playwright test \
+            "Epic 5 - Contact" \
+            "Epic 2 - L'Annuaire" \
+            "Epic 3 - Zone sécurisée"        
 
       - name: Upload Playwright Report
         if: always()
