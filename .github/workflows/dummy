@@ -1,0 +1,89 @@
+name: Playwright Tests
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch: {}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Exécuter les tests
+        run: |
+          npx playwright test \
+            "Epic 5 - Contact" \
+            "Epic 2 - L'Annuaire" \
+            "Epic 3 - Zone sécurisée"        
+
+      - name: Upload Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 30
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: test-results
+          retention-days: 30
+
+
+
+  discord:
+    needs: test
+    runs-on: ubuntu-latest
+    
+    steps:
+      ORG="jijiace"
+      REPO="projet-automatisation-bug-corp-2"
+      RUN_ID="${{ github.run_id }}"
+      WORKFLOW_NAME="Playwright Tests"
+      GITHUB_TOKEN="TON_TOKEN_GITHUB"
+      
+      # Récupérer la liste des artifacts
+      ARTIFACTS=$(curl -L \ -H "Accept: application/vnd.github+json" \ -H "Authorization: Bearer $GITHUB_TOKEN" \ -H "X-GitHub-Api-Version: 2022-11-28" \ https://api.github.com/repos/$ORG/$REPO/actions/runs/$RUN_ID/artifacts)
+      
+      # Télécharger chaque artifact
+      echo "$ARTIFACTS" | jq -r '.artifacts[] | "\(.id) \(.name)"' | while read -r ARTIFACT_ID ARTIFACT_NAME; do
+        echo "Téléchargement de $ARTIFACT_NAME (ID: $ARTIFACT_ID)..."
+        curl -L \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer $GITHUB_TOKEN" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          -o "${ARTIFACT_NAME}.zip" \
+          "https://api.github.com/repos/$ORG/$REPO/actions/artifacts/$ARTIFACT_ID/zip"
+        unzip "${ARTIFACT_NAME}.zip" -d "./rapports/${ARTIFACT_NAME}"
+      done
+
+
+
+      - name: Send message to Discord webhook
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          curl -H "Content-Type: application/json" \
+            -d "{\"content\":\"✅ [TEAM AJA] Nouveau push sur **${GITHUB_REPOSITORY}** (branch: **${GITHUB_REF_NAME}**) \nCommit: ${GITHUB_SHA}\"}" \
+            "$DISCORD_WEBHOOK_URL"
