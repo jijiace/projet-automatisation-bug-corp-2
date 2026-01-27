@@ -28,15 +28,15 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Exécuter les tests Epic 5 - Contact
-        continue-on-error: true
+       
         run: npx playwright test "Epic 5 - Contact" --project=chromium
         
       - name: Exécuter les tests Epic 2 - Annuaire
-        continue-on-error: true
+       
         run: npx playwright test "Epic 2 - L'Annuaire" --project=chromium
 
       - name: Exécuter les tests Epic 3 - Zone sécurisée
-        continue-on-error: true
+     
         run: npx playwright test "Epic 3 - Zone sécurisée" --project=chromium
         
 
