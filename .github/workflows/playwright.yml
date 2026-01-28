@@ -1,11 +1,15 @@
 name: Playwright Tests
 
+
+
 on:
   push:
     branches: [ main, master ]
   pull_request:
     branches: [ main, master ]
   workflow_dispatch: {}
+
+
 
 jobs:
   test:
@@ -49,3 +53,54 @@ jobs:
           name: test-results
           path: test-results
           retention-days: 30
+
+
+
+  get-report-link:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      dl_link: ${{ steps.get-link.outputs.dl_link }}
+
+    steps:
+      - name: Récupérer l'ID du run
+        id: get-run-id
+        run: echo "run_id=${{ github.run_id }}" >> $GITHUB_OUTPUT
+
+      - name: Récupérer le lien de téléchargement du rapport
+        id: get-link
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ steps.get-run-id.outputs.run_id }}
+        run: |
+          # Récupérer l'ID de l'artifact "playwright-report"
+          ARTIFACT_ID=$(curl -s -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/runs/$RUN_ID/artifacts" | jq -r '.artifacts[] | select(.name == "playwright-report") | .id')
+
+          # Récupérer le lien de téléchargement
+          DL_LINK=$(curl -s -L \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/artifacts/$ARTIFACT_ID/zip" | jq -r '.archive_download_url')
+
+          echo "dl_link=$DL_LINK" >> $GITHUB_OUTPUT
+
+
+
+  discord:
+    needs: get-report-link
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send message to Discord webhook
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DL_LINK: ${{ needs.get-report-link.outputs.dl_link }}
+        run: |
+          curl -H "Content-Type: application/json" \
+            -d "{\"content\":\"✅ [TEAM AJA] Nouveau push sur **${GITHUB_REPOSITORY}** (branch: **${GITHUB_REF_NAME}**) \nCommit: ${GITHUB_SHA} \n\n📊 Rapport des tests : $DL_LINK\"}" \
+            "$DISCORD_WEBHOOK_URL"
