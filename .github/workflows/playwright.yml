@@ -34,9 +34,10 @@ jobs:
       - name: Exécuter les tests
         run: |
           npx playwright test \
+            --project=Chromium \
             "Epic 5 - Contact" \
             "Epic 2 - L'Annuaire" \
-            "Epic 3 - Zone sécurisée"        
+            "Epic 3 - Zone sécurisée"
 
       - name: Upload Playwright Report
         if: always()
