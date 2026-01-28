@@ -59,6 +59,7 @@ jobs:
 
   get-report-link:
     needs: test
+    if: always()
     runs-on: ubuntu-latest
     outputs:
       dl_link: ${{ steps.get-link.outputs.dl_link }}
@@ -94,6 +95,7 @@ jobs:
 
   discord:
     needs: get-report-link
+    if: always()
     runs-on: ubuntu-latest
 
     steps:
